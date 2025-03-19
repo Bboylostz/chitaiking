@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ autor }}{% endblock title %}
+
+{% block content %}
+    <h1>{{ autor.last_name }}</h1>
+    
+    <div class="biography">
+        {{ autor.biography }}
+    </div>
+
+    
+
+
+
+    <div class="cont_card">
+    
+        {%for i in books%}
+        <a href="{% url 'book_item' i.id %}">
+        <div class="card" style="width: 18rem;">
+            <img src="/media/{{i.image}}" class="card-img-top" alt="..."></a>
+            <div class="card-body">
+              <a href="{% url 'book_item' i.id %}"><h5 class="card-title"> {{i.tittle}}</h5></a>
+              <p class="card-text">{{i.tags}}</p>
+              <a href="{% url 'book_item' i.id %}" class="btn btn-primary">Читать дальше</a>
+            </div>
+          </div>
+          {%endfor%}
+    </div>
+
+
+{% endblock %}

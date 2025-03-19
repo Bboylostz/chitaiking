@@ -1,0 +1,12 @@
+{% extends 'base.html'%}
+
+{%load static%}
+
+{% block title%}{{book}}{%endblock title%}
+
+{% block content%}
+<h1>{{book}}</h1>
+
+{{book.text}}
+
+{% endblock %}

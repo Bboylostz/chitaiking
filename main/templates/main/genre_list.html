@@ -1,0 +1,14 @@
+{% extends 'base.html'%}
+
+{%load static%}
+
+{% block title%}жанры{%endblock title%}
+
+{% block content%}
+<h1>Жанры</h1>
+
+{%for i in genre%}
+<p>{{i.name}}</p>
+{%endfor%}
+
+{% endblock %}

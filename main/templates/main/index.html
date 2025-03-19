@@ -1,0 +1,60 @@
+{% extends 'base.html'%}
+
+{%load static%}
+
+{% block title%}индекс{%endblock title%}
+
+{% block content%} 
+<h1>Добро пожаловать</h1>
+
+
+
+<div><a href="{% url 'genre_list' %}" class="name_tittle_list"><h2>Наши жанры</h2></a></div>
+<div class="cont_card">
+    
+    {%for i in genre%}
+    <div class="card" style="width: 18rem;">
+        <a href="{% url 'genre' i.id%}"><img src="/media/{{i.image}}" class="card-img-top" alt="..."></a>
+        <div class="card-body">
+          <h5 class="card-title">{{i.name}}</h5>
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          <a href="{% url 'genre' i.id%}" class="btn btn-primary">{{i.name}}</a>
+        </div>
+      </div>
+      {%endfor%}
+</div>
+
+
+<div><a href="{% url 'autor_list' %}" class="name_tittle_list"><h2>Наши авторы</h2></a></div>
+<div class="cont_card">
+    
+    {%for i in autor%}
+    <div class="card" style="width: 18rem;">
+        <a href="{% url 'autor_detail' i.id%}"><img src="/media/{{i.image}}" class="card-img-top" alt="..."></a>
+        <div class="card-body">
+          <h5 class="card-title"> {{i.first_name}} {{i.other_name}} {{i.last_name}}</h5>
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          <a href="{% url 'autor_detail' i.id%}" class="btn btn-primary">Биография</a>
+        </div>
+      </div>
+      {%endfor%}
+</div>
+
+
+<div><a href="#"class="name_tittle_list"><h2>Наши книги</h2></a></div>
+<div class="cont_card">
+    
+    {%for i in book%}
+    <div class="card" style="width: 18rem;">
+        <a href="{% url 'book_item' i.id %}"><img src="/media/{{i.image}}" class="card-img-top" alt="..."></a>
+        <div class="card-body">
+          <h5 class="card-title"> {{i.tittle}}</h5>
+          <p class="card-text">{{i.tags}}</p>
+          <a href="{% url 'book_item' i.id %}" class="btn btn-primary">Читать дальше</a>
+        </div>
+      </div>
+      {%endfor%}
+</div>
+
+
+{% endblock %}

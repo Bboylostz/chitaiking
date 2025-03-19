@@ -1,0 +1,14 @@
+{% extends 'base.html'%}
+
+{%load static%}
+
+{% block title%}Авторы{%endblock title%}
+
+{% block content%}
+<h1>Авторы</h1>
+
+{%for i in autor%}
+<a href="{% url 'autor_detail' i.id%}"><p>{{i.last_name}} {{i.first_name}} {{i.other_name}} </p></a>
+{%endfor%}
+
+{% endblock %}
