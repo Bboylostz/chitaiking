@@ -4,6 +4,6 @@
 {% block content%}
 <h1>{{genre.name}}</h1>
 {% for book in books %}
-    <a href="#"><p>{{book.tittle}}</p></a>
+    <a href="{% url 'book_item' book.id %}"><p>{{book.tittle}}</p></a>
 {% endfor %}
 {% endblock %}

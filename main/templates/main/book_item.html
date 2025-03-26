@@ -3,10 +3,33 @@
 {%load static%}
 
 {% block title%}{{book}}{%endblock title%}
-
+""" ауто эскейп нужен что бы убрать хтмл при выводе текста"""
 {% block content%}
 <h1>{{book}}</h1>
 
-{{book.text}}
+{% autoescape off %}  
 
+    
+{% for paragraph in page_obj %}
+{{ paragraph }}
+{% endfor %}
+
+<div class="pagination">
+    {% if page_obj.has_previous %}
+    <a href="?page={{ page_obj.previous_page_number }}" rel="prev">← Предыдущая</a>
+    {% endif %}
+
+    {% for num in page_obj.paginator.page_range %}
+    <a href="?page={{ num }}" {% if page_obj.number == num %}class="active"{% endif %}>
+        {{ num }}
+    </a>
+    {% endfor %}
+
+    {% if page_obj.has_next %}
+    <a href="?page={{ page_obj.next_page_number }}" rel="next">Следующая →</a>
+    {% endif %}
+</div>
+
+
+{% endautoescape %} 
 {% endblock %}

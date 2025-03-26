@@ -44,7 +44,7 @@
                 <div class="genre-list">
                   {% for genre in category_genre %}
                   <div class="genre-item">
-                    <a href=# class="genre-link dropdown-item">
+                    <a href="{% url 'genre' genre.id %}" class="genre-link dropdown-item">
                       <span class="genre-name">{{ genre.name }}</span>
                     </a>
                   </div>
@@ -134,7 +134,28 @@
           </div>
 
           <div class="col-lg-2">
-            <p>QEFWFWFWFW</p>
+            {%for book in category_book%}
+            <div class="card_richt mb-3" style="max-width: 540px; ">
+              <div class="row g-0;">
+                <div class="col-md-4; ">
+                  <img src="/media/{{book.image}}" class="img-fluid rounded-start" alt="тут пока ничего нет">
+                </div>
+                <div class="col-md-8; ">
+                  <div class="card-body; ">
+                    <h5 class="card-title">{{book.tittle}}</h5>
+                    {{book.description|truncatechars:100}}
+                    {% if book.description|length > 100 %}
+                        <a href="{% url 'book_item' book.id %}" class="text-muted">...читать дальше</a>
+                    {% endif %}
+                    <p class="card-text"><small class="text-body-secondary">Добавлено {{book.created_at}}</small></p>
+                    
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+
+            
           </div>
         </div>
       </div>
@@ -142,7 +163,35 @@
   </div>
 
   <footer>
-    <div class="foot"></div>
+
+    <div class="container text-center">
+      <div class="row align-items-start">
+        <div class="col">
+          
+            <h3>Социальные сети</h3>
+            <p>Instagram |<a href="https://t.me/sewenkeys" class="teg_a">Telegram</a> | Twitter</p>
+        
+        </div>
+        <div class="col">
+          
+                <h3>Контакты</h3>
+                <p>по всем вопросам сотрудничества <br>
+                  <a href="https://t.me/sewenkeys" class="teg_a">пишите сюда</a>
+                </p>
+           
+        
+      </div>
+    </div>
+
+
+
+
+
+
+
+
+    
+   
     © 2025 Мой сайт
   </footer>
 

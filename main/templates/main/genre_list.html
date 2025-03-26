@@ -8,7 +8,7 @@
 <h1>Жанры</h1>
 
 {%for i in genre%}
-<p>{{i.name}}</p>
+<a href="{% url 'genre' i.id%}"><p>{{i.name}}</p></a>
 {%endfor%}
 
 {% endblock %}

@@ -2,7 +2,7 @@
 
 {%load static%}
 
-{% block title%}индекс{%endblock title%}
+{% block title%}ЧИТАЙКИНг{%endblock title%}
 
 {% block content%} 
 <h1>Добро пожаловать</h1>
@@ -41,7 +41,7 @@
 </div>
 
 
-<div><a href="#"class="name_tittle_list"><h2>Наши книги</h2></a></div>
+<div><a href="{% url 'book_list' %}"class="name_tittle_list"><h2>Наши книги</h2></a></div>
 <div class="cont_card">
     
     {%for i in book%}
@@ -49,7 +49,14 @@
         <a href="{% url 'book_item' i.id %}"><img src="/media/{{i.image}}" class="card-img-top" alt="..."></a>
         <div class="card-body">
           <h5 class="card-title"> {{i.tittle}}</h5>
-          <p class="card-text">{{i.tags}}</p>
+          
+          <p class="card-text">
+            {% for tag in i.tags.all %}
+                <a href="{% url 'tag_list' tag.id %}"><span class="badge bg-secondary">{{ tag.name }}</span></a>
+                {% if not forloop.last %} {% endif %}
+            {% endfor %}
+        </p>
+          
           <a href="{% url 'book_item' i.id %}" class="btn btn-primary">Читать дальше</a>
         </div>
       </div>

@@ -1,5 +1,5 @@
 from django.db.models import Count
-from .models import Genre, Autor
+from .models import Book, Genre, Autor
 import random
 
 
@@ -10,10 +10,12 @@ def common_context(request):
     category_genre = Genre.objects.all()
     category_genre_rand = random.sample(list(Genre.objects.all()), 2)
     autor_rand = random.sample(list(Autor.objects.all()), 2)
+    category_book =random.sample( list(Book.objects.all()), 3)
     
     return {
         "category_genre": category_genre,
         "category_genre_rand": category_genre_rand,
         "autor_rand": autor_rand,
+        "category_book":category_book,
     }
 

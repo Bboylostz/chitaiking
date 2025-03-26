@@ -1,0 +1,14 @@
+{% extends 'base.html'%}
+
+{%load static%}
+
+{% block title%}Книги{%endblock title%}
+
+{% block content%}
+<h1>Книги</h1>
+
+{%for i in book%}
+<a href="{% url 'book_item' i.id %}"><p>{{i.tittle}}</p></a>
+{%endfor%}
+
+{% endblock %}

@@ -1,6 +1,9 @@
 from importlib.resources import contents
 from django.shortcuts import get_object_or_404, render, get_list_or_404
 from django.http import HttpResponse
+from django.core.paginator import Paginator
+from django.views.generic import ListView
+from django.db.models import Q
 
 
 import random
@@ -9,9 +12,13 @@ from .models import *
 
 def book_item(request, my_id):
     book=get_object_or_404(Book, id=my_id)
+    paginator = Paginator(book.text.split('.'), 20)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
     
 
-    return render(request, 'main/book_item.html',{'book':book})
+    return render(request, 'main/book_item.html',{'book':book,
+                                                  'page_obj': page_obj})
 
 
 def autor_list(request,):
@@ -37,6 +44,10 @@ def genre(request, my_id):
     return render(request, 'main/genre.html', {'genre':genre,
                                                'books':books})
 
+def book_list(request):
+    book = Book.objects.all().order_by('tittle')
+    return render(request, 'main/book_list.html', {'book': book})
+
 
 
 
@@ -47,6 +58,13 @@ def index(request):
     return render(request, 'main/index.html', {'book': book,
                                                'genre':genre,
                                                'autor':autor})
-
-
+def tag_list(request, my_id):
+    selected_tag = get_object_or_404(Tag, pk=my_id)
+    books = Book.objects.filter(tags=selected_tag)
+    
+    context = {
+        'books': books,
+        'selected_tag': selected_tag
+    }
+    return render(request, 'main/tag_list.html', context)
 
