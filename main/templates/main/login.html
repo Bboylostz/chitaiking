@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="signup-form">
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        
+        <!-- Добавляем информацию о статусе пользователя -->
+        {% if user.is_authenticated %}
+        <p>Вы уже авторизованы как {{ user.username }}</p>
+            
+        {% endif %}
+        
+        <button type="submit" class="btn btn-primary">
+            {% if user.is_authenticated %}
+                Обновить профиль
+            {% else %}
+                Авторизоваться
+            {% endif %}
+        </button>
+    </form>
+</div>
+{% endblock %}

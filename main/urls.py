@@ -13,8 +13,10 @@ urlpatterns = [
     path('genre/<int:my_id>/', views.genre, name='genre'),
     path("ckeditor5/", include('django_ckeditor_5.urls')),
     path('book_list', views.book_list, name='book_list'),
-    path('tag_list/<int:my_id>/', views.tag_list, name='tag_list')
-
+    path('tag_list/<int:my_id>/', views.tag_list, name='tag_list'),
+    path('signup/', views.signup_view, name='signup'),
+    path('login/', views.login_view, name='login'),
+    path('logout/', views.logout_view, name='logout')
 
    ]+ static(settings.MEDIA_URL,
               document_root=settings.MEDIA_ROOT)

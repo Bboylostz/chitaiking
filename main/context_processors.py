@@ -18,4 +18,9 @@ def common_context(request):
         "autor_rand": autor_rand,
         "category_book":category_book,
     }
-
+'''для отображения пользователя'''
+def auth_context(request):
+    return {
+        'is_authenticated': request.user.is_authenticated,
+        'username': request.user.username if request.user.is_authenticated else None,
+    }

@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="signup-form">
+    <form method="POST">
+        {% csrf_token %}
+        
+        <!-- Заголовок формы -->
+        <div class="form-header">
+            <h2>Регистрация</h2>
+            <p>Создайте новый аккаунт</p>
+        </div>
+
+        <!-- Поля формы -->
+        <div class="form-body">
+            {% if form.non_field_errors %}
+                <div class="error-messages">
+                    {{ form.non_field_errors }}
+                </div>
+            {% endif %}
+
+            <!-- Отображаем все поля формы с их ошибками -->
+            {% for field in form.visible_fields %}
+                <div class="form-group">
+                    {{ field.label_tag }}
+                    {{ field }}
+                    {% if field.errors %}
+                        <div class="error-messages">
+                            {{ field.errors }}
+                        </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+
+        <!-- Кнопка отправки -->
+        <button type="submit">Зарегистрироваться</button>
+    </form>
+</div>
+{% endblock %}

@@ -83,6 +83,17 @@
               поиск
             </button>
           </form>
+
+          <div class="user-info">
+            {% if user.is_authenticated %}
+                <span class="welcome"> Привет, {{ user.username }} !</span>
+                
+                <a href="{% url 'logout' %}" class="btn btn-primary">Выйти</a>
+            {% else %}
+                <a href="{% url 'login' %}" class="btn btn-primary">Войти</a>
+                <a href="{% url 'signup' %}" class="btn btn-primary">Регистрация</a>
+            {% endif %}
+        </div>
         </div>
       </div>
     </nav>
