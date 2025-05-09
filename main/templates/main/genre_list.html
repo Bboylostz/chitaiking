@@ -8,7 +8,16 @@
 <h1>Жанры</h1>
 
 {%for i in genre%}
-<a href="{% url 'genre' i.id%}"><p>{{i.name}}</p></a>
+
+
+
+
+
+
+<a href="{% url 'genre' i.id%} " ><p><div class="d-grid gap-2 col-6 mx-auto">
+    <button class="btn btn-primary" type="button">{{i.name}}</button>
+
+  </div></p></a>
 {%endfor%}
 
 {% endblock %}

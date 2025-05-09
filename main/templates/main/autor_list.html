@@ -8,7 +8,11 @@
 <h1>Авторы</h1>
 
 {%for i in autor%}
-<a href="{% url 'autor_detail' i.id%}"><p>{{i.last_name}} {{i.first_name}} {{i.other_name}} </p></a>
+<a href="{% url 'autor_detail' i.id%}"><p><div class="d-grid gap-2 col-6 mx-auto">
+    <button class="btn btn-primary" type="button">{{i.last_name}} {{i.first_name}} {{i.other_name}}</button>
+
+  </div> </p></a>
 {%endfor%}
 
 {% endblock %}
+
