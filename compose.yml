@@ -1,21 +1,40 @@
-version: '3.8'
 services:
   web:
+    build: .
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
     volumes:
-      - . : /app
+      - .:/app
       - static:/app/static
       - media:/app/media
     depends_on:
       - db
+    command: >
+      sh -c "for i in {1..30}; do
+               if pg_isready -h db -p 5432 -U $${POSTGRES_USER}; then
+                 echo 'PostgreSQL is ready';
+                 break;
+               fi;
+               echo 'Waiting for PostgreSQL to be ready...';
+               sleep 2;
+             done &&
+             python manage.py migrate &&
+             gunicorn site_book.wsgi:application --bind 0.0.0.0:8000"
+    networks:
+      - sakura_network
 
   db:
-    image: postgres:13
+    image: postgres:14
     environment:
       POSTGRES_DB: ${POSTGRES_DB}
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     volumes:
       - postgres_data:/var/lib/postgresql/data/
+    networks:
+      - sakura_network
 
   nginx:
     image: nginx:latest
@@ -24,15 +43,19 @@ services:
       - "443:443"
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf
-      - /etc/letsencrypt/
+      - /etc/letsencrypt/:/etc/letsencrypt/
       - static:/app/static
       - media:/app/media
     depends_on:
       - web
+    networks:
+      - sakura_network
+
+networks:
+  sakura_network:
+    driver: bridge
 
 volumes:
   postgres_data:
   static:
   media:
-
-
